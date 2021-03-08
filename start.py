@@ -2,36 +2,60 @@
 # -*- coding: UTF-8 -*-
 
 import os
-# from git.repo import Repo
-
-# # 创建本地路径用来存放远程仓库下载的代码
-# download_path = os.path.join('aha')
-# # 拉取代码
-# git_url = 'https://github.com/375003148/ModularizationProjectTemplate'
-# Repo.clone_from(git_url,to_path=download_path,branch='master')
+import shutil
 
 
-# ----------配置初始设置------------
-username = 'ZZH'
+def start():
+    # 配置工程前缀
+    cwd = os.getcwd()
+    project_prefix = ''
+    while len(project_prefix) == 0:
+        project_prefix = input('请输入你的工程前缀：').upper().replace(" ", "").replace("\t", "").strip()
+        print('工程前缀是：' + project_prefix)
+    # 配置工程名称
+    project_name = ''
+    while len(project_name) == 0:
+        project_name = input('请输入你的工程名称（注意驼峰标示）：').replace(" ", "").replace("\t", "").strip()
+        print('工程名称是：' + project_name)
+    # 检查当前目录是否已经有了同名文件或文件夹
+    checkpath = os.path.join(cwd, 'project_name')
+    if os.path.exists(checkpath):
+        print_warning('脚本当前目录已存在同名文件，请处理后再操作')
+        return
 
-# # 配置工程前缀
-# project_prefix = ''
-# while len(project_prefix)==0:
-#     project_prefix = input('请输入你的工程前缀：')
-#     project_prefix = project_prefix.upper().replace(' ', '')
-#     print('工程前缀是' + project_prefix)
-#
-# # 配置工程名称
-# project_name = ''
-# while len(project_name)==0:
-#     project_name = input('请输入你的工程名称（注意驼峰标示）：')
-#     project_name = project_name.replace(' ', '')
-#     print('工程名称是' + project_name)
+    # 拉取代码
+    tmpdir = 'pwlptauv94543890322340'
+    os.chdir(cwd)
+    git_url = 'https://github.com/375003148/ProjectTemplate.git'
+    print()
+    print_important_mes('git clone 拉取模板')
+    os.system('git clone %s %s' % (git_url, tmpdir))
+    if os.path.exists(os.path.join(cwd, tmpdir, 'start.py')):
+        print_important_mes('拉取成功')
+        print()
+    else:
+        print_warning('git clone 失败')
+        print()
+        return
 
-project_name = 'EasyPaa'
-project_prefix = 'EW'
-project_folder = os.getcwd() + '/Template/ZZHPROJECT/'
-os.system("python edit_template.py %s %s %s"%(project_name, project_prefix, project_folder))
+    # 调用 edit_template.py进行工程修改
+    os.chdir(tmpdir)
+    project_folder = os.path.join(cwd, tmpdir, 'Template', 'ZZHPROJECT')
+    os.system("python edit_template.py %s %s %s" % (project_name, project_prefix, project_folder))
+
+    # 配置完成之后将工程移动到最外面,删除多余的东西
+    shutil.move(os.path.join(cwd, tmpdir, 'Template', project_name), cwd)
+    shutil.rmtree(os.path.join(cwd, tmpdir))
+    print()
+    print_important_mes('***************')
+    print_important_mes('恭喜你，全部成功啦')
+    print_important_mes('***************')
+
+def print_warning(str):
+    print("\033[1;31;m!!!!!!!!!!!!!!!!!!!!! %s !!!!!!!!!!!!!!!!!!!!!\033[0m" % str)
+
+def print_important_mes(str):
+    print("\033[1m********************* %s *********************\033[0m" % str)
 
 
-
+start()

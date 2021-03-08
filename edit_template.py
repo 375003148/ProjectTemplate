@@ -22,7 +22,8 @@ def config_template(pro_folder):
     for olditem, newitem in replaceitems.items():
         _rename_project(pro_folder, olditem, newitem)
 
-    print('++++++++++++++++++ 工程配置完成 +++++++++++++++++++')
+    print()
+    print_important_mes('工程配置完成')
     print('工程目录：' + pro_folder)
     return pro_folder
 
@@ -46,8 +47,7 @@ def _rename_project(path, old, new):
             newpath = os.path.join(path, item)
             _rename_project(newpath, old, new)
     else:
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        print('路径不正确：'+ path)
+        print_warning('路径不正确：'+path)
 
 # 修改文件或目录名称
 def _rename(path, old_name, new_name):
@@ -77,10 +77,17 @@ def _replace_content(file_path, old_string, new_string):
 # pod init
 def pod_install():
     print()
-    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-    print('++++++++++++++++++++++++++ pod installing ++++++++++++++++++++++++++++++++')
+    print_important_mes('pod installing')
+    print_important_mes('**************')
     os.chdir(project_folder)
     os.system('pod install --verbose --no-repo-update')
+
+def print_warning(str):
+    print("\033[1;31;m!!!!!!!!!!!!!!!!!!!!! %s !!!!!!!!!!!!!!!!!!!!!\033[0m" % str)
+
+def print_important_mes(str):
+    print("\033[1m********************* %s *********************\033[0m" % str)
+
 
 # 基本参数
 old_project_name = 'ZZHPROJECT'
