@@ -4,6 +4,7 @@
 import os
 import re
 import sys
+import io
 
 
 # 配置模板工程
@@ -49,6 +50,7 @@ def _rename_project(path, old, new):
     else:
         print_warning('路径不正确：'+path)
 
+
 # 修改文件或目录名称
 def _rename(path, old_name, new_name):
     filename = os.path.basename(path)
@@ -60,11 +62,12 @@ def _rename(path, old_name, new_name):
         os.rename(path, newpath)
     return newpath
 
+
 # 替换文件内容中的字符串
 def _replace_content(file_path, old_string, new_string):
     # 打开文件  r+: 可读可写，若文件不存在，报错。 ignore是忽略error
-    # f = open(file_path, 'r+')
-    f = open(file_path, 'r+', errors='ignore')
+    f = io.open(file_path, 'r+', errors='ignore')
+    # f = open(file_path, 'r+', errors='ignore')
     content = f.read()
     new_content = re.sub(old_string, new_string, content)
     # 清空文件内容
@@ -74,6 +77,7 @@ def _replace_content(file_path, old_string, new_string):
     f.write(new_content)
     f.close()
 
+
 # pod init
 def pod_install():
     print()
@@ -82,11 +86,13 @@ def pod_install():
     os.chdir(project_folder)
     os.system('pod install --verbose --no-repo-update')
 
-def print_warning(str):
-    print("\033[1;31;m!!!!!!!!!!!!!!!!!!!!! %s !!!!!!!!!!!!!!!!!!!!!\033[0m" % str)
 
-def print_important_mes(str):
-    print("\033[1m********************* %s *********************\033[0m" % str)
+def print_warning(s):
+    print("\033[1;31;m!!!!!!!!!!!!!!!!!!!!! %s !!!!!!!!!!!!!!!!!!!!!\033[0m" % s)
+
+
+def print_important_mes(s):
+    print("\033[1m********************* %s *********************\033[0m" % s)
 
 
 # 基本参数
