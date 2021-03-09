@@ -8,7 +8,7 @@ import sys
 
 def start():
     # 配置工程前缀
-    current_dir = sys.argv[0]
+    current_dir = os.path.dirname(sys.argv[0])
     os.chdir(current_dir)
     project_prefix = ''
     while len(project_prefix) == 0:
@@ -20,7 +20,7 @@ def start():
         project_name = input('请输入你的工程名称（注意驼峰标示）：').replace(" ", "").replace("\t", "").strip()
         print('工程名称是：' + project_name)
     # 检查当前目录是否已经有了同名文件或文件夹
-    checkpath = os.path.join(current_dir, 'project_name')
+    checkpath = os.path.join(current_dir, project_name)
     if os.path.exists(checkpath):
         print_warning('脚本当前目录已存在同名文件，请处理后再操作')
         return

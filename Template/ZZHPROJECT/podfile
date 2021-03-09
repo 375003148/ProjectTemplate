@@ -7,8 +7,7 @@ target 'ZZHPROJECT' do
   # 三方库
   pod 'AFNetworking', '~> 4.0.0'
 
-  # 本地模块
-  # pod '${PODNAME}', :path => './DevelopmentPods/${PODNAME}'
+  # 本地模块(这一块用于脚本,不要自己修改) ${ZZHPODNAME}
 
   # 消除警告
   post_install do |installer|

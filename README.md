@@ -5,4 +5,4 @@ ReadMe
 
 
 ## 使用方法
-只需要下载 start.py 文件执行
+只需要下载 start.py 文件执行即可
