@@ -27,7 +27,7 @@ def start():
 
     # 拉取代码
     tmpdir = 'pwlptauv94543890322340'
-    git_url = 'https://github.com/375003148/ProjectTemplate.git'
+    git_url = 'git://github.com/375003148/ProjectTemplate.git'
     print()
     print_important_mes('git clone 拉取模板')
     os.system('git clone %s %s' % (git_url, tmpdir))
