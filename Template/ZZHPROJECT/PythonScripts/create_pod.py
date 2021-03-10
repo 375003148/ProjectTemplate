@@ -14,7 +14,7 @@ def create_new_pod(podname):
     print_important_mes('***************')
     print_important_mes('开始创建pod库文件')
     pod_home_name = 'DevelopmentPods'
-    pod_path = os.path.join(project_folder, pod_home_name,podname)
+    pod_path = os.path.join(project_folder, pod_home_name, podname)
     if os.path.exists(pod_path):
         print_warning('该目录下已经存在同名文件，请处理')
         return
@@ -46,7 +46,7 @@ def create_new_pod(podname):
     f.truncate()
     pos = content.find(mark)
     if pos != -1:
-        place_str = "  pod '%s', :path => './%s/%s'"%(podname, pod_home_name, podname)
+        place_str = "  pod '%s', :path => './%s/%s'" % (podname, pod_home_name, podname)
         place_index = pos+len(mark)
         content = content[:place_index] + '\n' + place_str + content[place_index:]
         f.write(content)
@@ -81,8 +81,9 @@ project_folder = os.path.dirname(script_folder)
 # 配置pod名称 input只适用python3
 pod_name = ''
 while len(pod_name) == 0:
-    pod_name = input('请输入你的pod名称：')
-    print('你的pod名称是：' + pod_name)
+    pod_name = input('请输入你的pod名称：').replace(" ", "").replace("\t", "").strip()
+pod_name = pod_name[:1].upper() + pod_name[1:]
+print('你的pod名称是：' + pod_name)
 
 # 开始配置pod模块
 create_new_pod(pod_name)

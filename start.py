@@ -18,7 +18,8 @@ def start():
     project_name = ''
     while len(project_name) == 0:
         project_name = input('请输入你的工程名称（注意驼峰标示）：').replace(" ", "").replace("\t", "").strip()
-        print('工程名称是：' + project_name)
+    project_name = project_name[:1].upper() + project_name[1:]
+    print('工程名称是：' + project_name)
     # 检查当前目录是否已经有了同名文件或文件夹
     checkpath = os.path.join(current_dir, project_name)
     if os.path.exists(checkpath):
