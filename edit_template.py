@@ -17,8 +17,9 @@ def config_template(pro_folder):
 
     # 替换其它内容
     replaceitems = {
-        'ZZHAppDelegate': 'EWAppDelegate',
-        'ZZHViewController': 'EWViewController',
+
+        'ZZHAppDelegate': (new_project_prefix+'AppDelegate'),
+        'ZZHViewController': (new_project_prefix+'ViewController'),
     }
     for olditem, newitem in replaceitems.items():
         _rename_project(pro_folder, olditem, newitem)
